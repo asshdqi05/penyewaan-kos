@@ -1,0 +1,324 @@
+DEBUG - 2025-06-30 01:50:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 01:51:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 01:51:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 02:00:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 02:10:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 02:11:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 02:11:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 02:11:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:30:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:38:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:38:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:38:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:39:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:39:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:40:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:40:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:40:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:40:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:41:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:42:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:42:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:42:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:43:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:49:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 06:49:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 07:03:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 07:03:35 --> ArgumentCountError: Too few arguments to function App\Controllers\Sewa_kamar_controller::cetak_struk(), 0 passed in C:\Users\acer\Documents\Project\CI4\penyewaan-kos\vendor\codeigniter4\framework\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 148.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:26:59 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:30:07 --> Error: Call to a member function first() on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 150.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:30:22 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:31:22 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 152.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(152): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 152)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:31:35 --> ErrorException: Undefined array key "id_penyewa"
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 152.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(152): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_penyewa"', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 152)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:31:48 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 152.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(152): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 152)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:32:27 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 152.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(152): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 152)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:35:33 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 154.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(154): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 154)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 09:35:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:35:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:35:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:35:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:35:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 09:35:58 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 154.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(154): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 154)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:37:57 --> ErrorException: Undefined array key "id_penyewa"
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_penyewa"', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:39:54 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:39:56 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 09:40:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:40:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 09:41:26 --> ErrorException: Attempt to read property "id_penyewa" on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 151.
+ 1 APPPATH\Controllers\Sewa_kamar_controller.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id_penyewa" on array', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Controllers\\Sewa_kamar_controller.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 09:41:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:41:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 09:43:13 --> Error: Call to a member function first() on array
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Controllers\Sewa_kamar_controller.php on line 150.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:43:36 --> ErrorException: Undefined property: stdClass::$nama
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Views\Cetak_struk.php on line 88.
+ 1 APPPATH\Views\Cetak_struk.php(88): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nama', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php', 88)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Cetak_struk', [], true)
+ 5 APPPATH\Controllers\Sewa_kamar_controller.php(161): view('Cetak_struk', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:43:53 --> ErrorException: Attempt to read property "metode_pembayaran" on null
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Views\Cetak_struk.php on line 119.
+ 1 APPPATH\Views\Cetak_struk.php(119): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "metode_pembayaran" on null', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php', 119)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Cetak_struk', [], true)
+ 5 APPPATH\Controllers\Sewa_kamar_controller.php(161): view('Cetak_struk', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:48:16 --> ErrorException: Attempt to read property "metode_pembayaran" on null
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Views\Cetak_struk.php on line 119.
+ 1 APPPATH\Views\Cetak_struk.php(119): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "metode_pembayaran" on null', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php', 119)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Cetak_struk', [], true)
+ 5 APPPATH\Controllers\Sewa_kamar_controller.php(161): view('Cetak_struk', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:48:17 --> ErrorException: Attempt to read property "metode_pembayaran" on null
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Views\Cetak_struk.php on line 119.
+ 1 APPPATH\Views\Cetak_struk.php(119): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "metode_pembayaran" on null', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php', 119)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Cetak_struk', [], true)
+ 5 APPPATH\Controllers\Sewa_kamar_controller.php(161): view('Cetak_struk', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+CRITICAL - 2025-06-30 09:53:49 --> ErrorException: Undefined property: stdClass::$nama
+[Method: GET, Route: cetak-struk/1]
+in APPPATH\Views\Cetak_struk.php on line 127.
+ 1 APPPATH\Views\Cetak_struk.php(127): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nama', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php', 127)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\Cetak_struk.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Cetak_struk', [], true)
+ 5 APPPATH\Controllers\Sewa_kamar_controller.php(161): view('Cetak_struk', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Sewa_kamar_controller->cetak_struk()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Sewa_kamar_controller))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 09:56:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 09:56:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 10:46:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 10:48:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 10:48:35 --> ErrorException: Undefined property: CodeIgniter\View\View::$session
+[Method: GET, Route: Front-Dashboard]
+in APPPATH\Views\template\Front_header.php on line 60.
+ 1 APPPATH\Views\template\Front_header.php(60): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: CodeIgniter\\View\\View::$session', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\template\\Front_header.php', 60)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\template\\Front_header.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('template/Front_header', [], true)
+ 5 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Front_dashboard', [], true)
+ 6 APPPATH\Controllers\Front_controller.php(30): view('Front_dashboard', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Front_controller->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Front_controller))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 10:51:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-06-30 10:51:22 --> ErrorException: Undefined variable $session
+[Method: GET, Route: Front-Dashboard]
+in APPPATH\Views\template\Front_header.php on line 60.
+ 1 APPPATH\Views\template\Front_header.php(60): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $session', 'C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\template\\Front_header.php', 60)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\app\\Views\\template\\Front_header.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('template/Front_header', [], true)
+ 5 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('Front_dashboard', [], true)
+ 6 APPPATH\Controllers\Front_controller.php(30): view('Front_dashboard', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Front_controller->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Front_controller))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\acer\\Documents\\Project\\CI4\\penyewaan-kos\\public\\index.php')
+DEBUG - 2025-06-30 10:51:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 10:52:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 10:53:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-06-30 10:53:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
