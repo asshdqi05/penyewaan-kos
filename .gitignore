@@ -16,3 +16,13 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+
+/writable/*
+!/writable/index.html
+!/writable/uploads/
+!/writable/cache/
+!/writable/session/
+
+/writable/debugbar/
+/writable/
+/public/uploads/
