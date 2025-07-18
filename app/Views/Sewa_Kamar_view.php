@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 <div class="row">
     <div class="col-sm-12">
+        
         <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add">

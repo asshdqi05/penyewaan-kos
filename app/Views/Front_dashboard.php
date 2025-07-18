@@ -59,6 +59,31 @@
                                 <div style="white-space: pre-line;"><?= esc($k->fasilitas) ?></div>
                                 <div class="room-price">Harga: Rp <?= number_format($k->harga, 0, ',', '.') ?></div>
                             </div>
+                            <div class="card-footer">
+                                <?php if (session()->get('logged_in_penyewa')) : ?>
+                                    <?php if ($k->status == 'Kosong') : ?>
+                                        <a class="btn bg-maroon btn-sm btn-block select-kamar-btn" data-id="<?= $k->id ?>" data-nama="<?= esc($k->nama_kamar) ?>" data-fasilitas="<?= esc($k->fasilitas) ?>" data-harga="<?= $k->harga ?>">
+                                            Pesan Kamar
+                                        </a>
+                                    <?php else : ?>
+                                        <button type="button" class="btn btn-secondary btn-block btn-sm" disabled>
+                                            Kamar Tidak Tersedia
+                                        </button>
+                                    <?php endif; ?>
+
+                                <?php else : ?>
+                                    <?php if ($k->status == 'Kosong') : ?>
+                                        <a class="btn bg-maroon btn-sm btn-block" data-toggle="modal" data-target="#modal_login">
+                                            Pesan Kamar
+                                        </a>
+                                    <?php else : ?>
+                                        <button type="button" class="btn btn-secondary btn-block btn-sm" disabled>
+                                            Kamar Tidak Tersedia
+                                        </button>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -164,9 +189,73 @@
 </div>
 
 
+<div class="modal fade" id="modal_add">
+    <div class="modal-dialog modal-xl">
+        <form method="POST" id="form-add">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data</h4>
+                    <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body row">
+                    <div class="form-group col-md-6">
+                        <label>Nama Penyewa</label>
+                        <input type="text" name="nama_penyewa" id="nama_penyewa" class="form-control" value="<?= session()->get('nama_penyewa') ?>" readonly required>
+                        <input type="hidden" name="id_penyewa" id="id_penyewa" class="form-control" value="<?= session()->get('id_penyewa') ?>" readonly required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Kamar</label>
+                        <div class="row">
+                            <input type="text" name="nama_kamar" id="nama_kamar" class="form-control col-12" readonly required>
+                            <input type="hidden" name="id_kamar" id="id_kamar" class="form-control" readonly required>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Fasilitas Kamar</label>
+                        <textarea name="fasilitas_kamar" id="fasilitas_kamar" class="form-control" rows="5" readonly required></textarea>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Harga Kamar Permalam</label>
+                        <input type="text" name="harga" id="harga-select" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Tanggal Masuk</label>
+                        <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Tanggal Keluar</label>
+                        <input type="date" name="tanggal_keluar" id="tanggal_keluar" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Lama Sewa (Permalam)</label>
+                        <input type="number" name="lama_sewa" id="lama_sewa" class="form-control" readonly required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Total</label>
+                        <input type="text" name="total" id="total_harga" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>DP</label>
+                        <input type="text" name="dp" id="dp" class="form-control" readonly required>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <script src="<?= base_url('assets/') ?>plugins/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+
         $('#form_register').submit(function(e) {
             // Validasi form sebelum mengirim
             var isValid = true;
@@ -250,6 +339,101 @@
                 }
             });
         });
+
+        let today = new Date();
+        let yyyy = today.getFullYear();
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let dd = String(today.getDate()).padStart(2, '0');
+        let todayStr = `${yyyy}-${mm}-${dd}`;
+
+        // Hitung tanggal besok
+        let tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        let yyyy2 = tomorrow.getFullYear();
+        let mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        let dd2 = String(tomorrow.getDate()).padStart(2, '0');
+        let tomorrowStr = `${yyyy2}-${mm2}-${dd2}`;
+
+        $('#tanggal_masuk').attr('min', todayStr);
+        $('#tanggal_keluar').attr('min', tomorrowStr);
+
+
+
+
+        $('#tanggal_masuk, #tanggal_keluar').on('change', hitungSewaPerMalam);
+
+        $("#form-add").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('save-sewa-kamar-penyewa') ?>",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 'success') {
+                        $('#modal_add').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+                        setTimeout(() => {
+                            window.location.href = '<?= base_url('sewa-kamar-penyewa') ?>';
+                        }, 1500);
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+
+                },
+                error: function() {
+                    alert('Error saving data!');
+                }
+            });
+        });
+
+        $(document).on('click', '.select-kamar-btn', function() {
+            $('#id_kamar').val($(this).data('id'));
+            $('#nama_kamar').val($(this).data('nama'));
+            $('#fasilitas_kamar').val($(this).data('fasilitas'));
+            $('#harga-select').val($(this).data('harga'));
+            $('#modal_add').modal('show');
+        });
+
     });
+
+    function hitungSewaPerMalam() {
+        const masuk = new Date($('#tanggal_masuk').val());
+        const keluar = new Date($('#tanggal_keluar').val());
+        const harga = parseInt($('#harga-select').val());
+
+        if (!isNaN(masuk) && !isNaN(keluar) && keluar > masuk) {
+            let malam = (keluar - masuk) / (1000 * 60 * 60 * 24);
+
+            if (isNaN(malam)) {
+                malam = 0;
+            }
+
+            if (malam < 1) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Minimal sewa adalah 1 malam.'
+                });
+                $('#tanggal_keluar').val('');
+                $('#lama_sewa').val('');
+                $('#total_harga').val('');
+                return;
+            }
+
+            $('#lama_sewa').val(malam);
+            const total = malam * harga;
+            $('#total_harga').val('Rp ' + total.toLocaleString('id-ID'));
+            $('#dp').val('Rp ' + (total / 2).toLocaleString('id-ID'));
+        } else {
+            $('#lama_sewa').val('');
+            $('#total_harga').val('');
+        }
+    }
 </script>
 <?= $this->endSection() ?>

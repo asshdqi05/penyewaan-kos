@@ -25,6 +25,7 @@ class Sewa_kamar_model extends Model
             ->join('penyewa', 'penyewa.id = sewa_kamar.id_penyewa')
             ->join('kamar', 'kamar.id = sewa_kamar.id_kamar')
             ->where('sewa_kamar.id_penyewa', $id_penyewa)
+            ->orderBy('sewa_kamar.id', 'desc')
             ->findAll();
     }
 

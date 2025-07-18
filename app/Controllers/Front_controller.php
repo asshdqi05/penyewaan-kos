@@ -27,6 +27,7 @@ class Front_controller extends BaseController
     public function index()
     {
         $session = session();
+        $this->autoBatalSewa();
         $data['title'] = 'Dashboard';
         $data['menu'] = 'mn_dashboard';
         $data['kamar'] = $this->kamarModel->where('is_active', 'y')->findAll();
@@ -42,6 +43,37 @@ class Front_controller extends BaseController
         }));
         return view('Front_dashboard', $data);
     }
+
+    private function autoBatalSewa()
+    {
+        $now = date('Y-m-d');
+        $currentTime = date('H:i:s');
+
+        if ($currentTime >= '12:00:00') {
+            $listBatal = $this->sewaKamarModel
+                ->where('tanggal_masuk <=', $now)
+                ->where('status_pembayaran !=', 'Lunas')
+                ->where('status', 'Booked')
+                ->findAll();
+
+            if ($listBatal) {
+                $this->sewaKamarModel
+                    ->where('tanggal_masuk <=', $now)
+                    ->where('status_pembayaran !=', 'Lunas')
+                    ->where('status', 'Booked')
+                    ->set(['status' => 'Batal'])
+                    ->update();
+
+                foreach ($listBatal as $item) {
+                    $this->kamarModel
+                        ->where('id', $item->id_kamar)
+                        ->set(['status' => 'Kosong'])
+                        ->update();
+                }
+            }
+        }
+    }
+
 
     public function register()
     {
@@ -72,6 +104,7 @@ class Front_controller extends BaseController
 
     public function sewa_kamar()
     {
+        $this->autoBatalSewa();
         if (!$this->session->has('id_penyewa')) {
             return redirect()->to('/Front-Dashboard');
         }

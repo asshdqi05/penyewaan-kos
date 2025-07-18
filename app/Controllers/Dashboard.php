@@ -13,6 +13,7 @@ class Dashboard extends BaseController
     }
     public function index()
     {
+        $this->autoBatalSewa();
         $session = session();
         $data['title'] = 'Dashboard';
         $data['menu'] = 'mn_dashboard';
@@ -28,5 +29,20 @@ class Dashboard extends BaseController
             return $kamar->status == 'Dipesan';
         }));
         return view('Dashboard', $data);
+    }
+
+    private function autoBatalSewa()
+    {
+        $now = date('Y-m-d');
+        $currentTime = date('H:i:s');
+
+        if ($currentTime >= '12:00:00') {
+            $this->sewaKamarModel
+                ->where('tanggal_masuk <=', $now)
+                ->where('status_pembayaran !=', 'Lunas')
+                ->where('status', 'Booked')
+                ->set(['status' => 'Batal'])
+                ->update();
+        }
     }
 }

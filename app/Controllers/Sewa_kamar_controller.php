@@ -26,6 +26,7 @@ class Sewa_kamar_controller extends BaseController
 
     public function index()
     {
+        $this->autoBatalSewa();
         $data['title'] = "Data Sewa Kamar";
         $data['menu'] = "mn_sewa_kamar";
         $data['kamar'] = $this->kamarModel->where('is_active', 'y')->findAll();
@@ -43,6 +44,41 @@ class Sewa_kamar_controller extends BaseController
         $data['data'] = $this->sewaKamarModel->getListData();
         return view('Sewa_Kamar_view', $data);
     }
+
+    private function autoBatalSewa()
+    {
+        $now = date('Y-m-d');
+        $currentTime = date('H:i:s');
+
+        // Hanya dijalankan jika sudah jam 12 siang
+        if ($currentTime >= '12:00:00') {
+            // Ambil semua data sewa yang perlu dibatalkan
+            $listBatal = $this->sewaKamarModel
+                ->where('tanggal_masuk <=', $now)
+                ->where('status_pembayaran !=', 'Lunas')
+                ->where('status', 'Booked')
+                ->findAll();
+
+            if ($listBatal) {
+                // Ubah status sewa jadi Batal
+                $this->sewaKamarModel
+                    ->where('tanggal_masuk <=', $now)
+                    ->where('status_pembayaran !=', 'Lunas')
+                    ->where('status', 'Booked')
+                    ->set(['status' => 'Batal'])
+                    ->update();
+
+                // Loop untuk ubah status kamarnya jadi "Kosong"
+                foreach ($listBatal as $item) {
+                    $this->kamarModel
+                        ->where('id', $item->id_kamar)
+                        ->set(['status' => 'Kosong'])
+                        ->update();
+                }
+            }
+        }
+    }
+
 
     public function save()
     {

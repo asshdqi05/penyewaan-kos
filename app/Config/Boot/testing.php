@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 
 /*
  * The environment testing is reserved for PHPUnit testing. It has special

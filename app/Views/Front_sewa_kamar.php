@@ -1,7 +1,15 @@
 <?= $this->extend('template/Front_header') ?>
 <?= $this->section('content') ?>
 <div class="row">
+
     <div class="col-sm-12">
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
+            Penyewa <b>wajib melakukan pelunasan</b> <u>sebelum jam 12:00 siang</u> di tanggal check-in.<br>
+            Jika tidak, <b>status sewa akan otomatis dibatalkan</b> dan kamar akan tersedia untuk penyewa lain.
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add">
@@ -22,6 +30,9 @@
                             <th>Total Harga</th>
                             <th>Status Bayar</th>
                             <th>Status</th>
+                            <th>
+                                <center>Countdown Pelunasan</center>
+                            </th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -39,6 +50,13 @@
                                 <td><?= esc('Rp. ' . number_format($d->total_harga)) ?></td>
                                 <td><?= esc($d->status_pembayaran) ?></td>
                                 <td><?= esc($d->status) ?></td>
+                                <td>
+                                    <?php if ($d->status_pembayaran == 'Menunggu pembayaran' || $d->status == 'Booked') : ?>
+                                        <span class="countdown" data-deadline="<?= $d->tanggal_masuk ?> 12:00:00"></span>
+                                    <?php else : ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
                                 <td class="text-center">
                                     <?php if ($d->status_pembayaran == 'Menunggu pembayaran') { ?>
                                         <a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="pembayaran('<?= $d->id ?>', '<?= $d->nama_penyewa ?>', '<?= $d->nama_kamar ?>','<?= $d->total_harga ?>', '<?= $d->lama_sewa ?>','<?= $d->id_kamar ?>')">
@@ -309,6 +327,9 @@
             theme: 'bootstrap4'
         });
 
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
         let today = new Date();
         let yyyy = today.getFullYear();
         let mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -498,4 +519,29 @@
         });
     }
 </script>
+<script>
+    function updateCountdown() {
+        const countdowns = document.querySelectorAll('.countdown');
+
+        countdowns.forEach(function(el) {
+            const deadlineStr = el.getAttribute('data-deadline');
+            const deadline = new Date(deadlineStr);
+            const now = new Date();
+
+            const diff = deadline - now;
+
+            if (diff > 0) {
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                el.textContent = `${hours}j ${minutes}m ${seconds}d`;
+            } else {
+                el.textContent = 'Batas waktu habis';
+                el.classList.add('text-danger');
+            }
+        });
+    }
+</script>
+
 <?= $this->endSection() ?>
