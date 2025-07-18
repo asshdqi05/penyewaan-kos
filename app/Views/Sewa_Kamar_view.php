@@ -229,7 +229,7 @@
 </div>
 
 <div class="modal fade" id="modal_pelunasan">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form method="POST" id="form-pelunasan">
             <div class="modal-content">
                 <div class="modal-header">
@@ -237,35 +237,46 @@
                     <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
-                    <input type="hidden" name="nama_penyewa" id="nama_penyewa">
-                    <input type="hidden" name="nama_kamar" id="nama_kamar">
-                    <input type="hidden" name="id_kamar" id="id_kamar_pelunasan">
-                    <div class="form-group">
-                        <label>Nama Penyewa</label>
-                        <input type="text" name="nama_penyewa" id="nama_penyewa_pelunasan" class="form-control" readonly required>
+                    <div class="row">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="nama_penyewa" id="nama_penyewa">
+                        <input type="hidden" name="nama_kamar" id="nama_kamar">
+                        <input type="hidden" name="id_kamar" id="id_kamar_pelunasan">
+                        <div class="form-group col-6">
+                            <label>Nama Penyewa</label>
+                            <input type="text" name="nama_penyewa" id="nama_penyewa_pelunasan" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Nama Kamar</label>
+                            <input type="text" name="nama_kamar" id="nama_kamar_pelunasan" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Total Harga</label>
+                            <input type="text" name="total_harga" id="total_harga_pelunasan" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Sudah Dibayar</label>
+                            <input type="number" name="jumlah_sudah_bayar" id="jumlah_sudah_bayar" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-12">
+                            <img id="bukti_pembayaran_preview" src="" alt="Bukti Pembayaran" class="img-fluid mt-2" style="max-height: 300px; display: none;">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Sisa Pembayaran</label>
+                            <input type="number" name="jumlah_pembayaran" id="sisa_pembayaran_pelunasan" class="form-control" readonly required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Metode Pembayaran</label>
+                            <select name="metode_pembayaran" class="form-control" required>
+                                <option value="">- Pilih -</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="QRIS">QRIS</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Nama Kamar</label>
-                        <input type="text" name="nama_kamar" id="nama_kamar_pelunasan" class="form-control" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <label>Total Harga</label>
-                        <input type="text" name="total_harga" id="total_harga_pelunasan" class="form-control" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <label>Sisa Pembayaran</label>
-                        <input type="number" name="jumlah_pembayaran" id="sisa_pembayaran_pelunasan" class="form-control" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <label>Metode Pembayaran</label>
-                        <select name="metode_pembayaran" class="form-control" required>
-                            <option value="">- Pilih -</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Transfer">Transfer</option>
-                            <option value="QRIS">QRIS</option>
-                        </select>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -277,6 +288,9 @@
 </div>
 
 <script src="<?= base_url('assets/') ?>plugins/jquery/jquery.min.js"></script>
+<script>
+    var base_url = "<?= base_url() ?>";
+</script>
 <script>
     $(document).ready(() => {
         $('#myTable').DataTable();
@@ -408,9 +422,32 @@
         $('#nama_kamar_pelunasan').val(kamar);
         $('#id_kamar_pelunasan').val(id_kamar);
         $('#total_harga_pelunasan').val('Rp ' + total.toLocaleString('id-ID'));
-        $('#sisa_pembayaran_pelunasan').val(total / 2); // Menghapus format Rp dan koma
-        $('#modal_pelunasan').modal('show');
+        $('#sisa_pembayaran_pelunasan').val(total / 2);
+        $('#jumlah_sudah_bayar').val(total / 2);
+
+        $.ajax({
+            url: base_url + 'getBukti/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.bukti) {
+                    $('#bukti_pembayaran_preview')
+                        .attr('src', base_url + 'uploads/bukti_pembayaran/' + response.bukti)
+                        .show();
+                } else {
+                    $('#bukti_pembayaran_preview').hide();
+                }
+
+                $('#modal_pelunasan').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error('Gagal mengambil bukti:', error);
+                $('#bukti_pembayaran_preview').hide();
+                $('#modal_pelunasan').modal('show');
+            }
+        });
     }
+
 
     function checkout(id, nama, kamar) {
         Swal.fire({

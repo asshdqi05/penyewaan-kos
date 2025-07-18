@@ -147,10 +147,18 @@ class Sewa_kamar_controller extends BaseController
 
     public function cetak_struk($id = null)
     {
-        $dataSewa = $this->sewaKamarModel->first($id);
+        $dataSewa = $this->sewaKamarModel->find($id);
+
+        if (!$dataSewa) {
+            return $this->response->setJSON([
+                'error' => 'Data sewa tidak ditemukan.'
+            ]);
+        }
+
         $dataPenyewa = $this->penyewaModel->find($dataSewa->id_penyewa);
         $dataKamar = $this->kamarModel->find($dataSewa->id_kamar);
         $dataPembayaran = $this->pembayaranModel->where('id_sewa_kamar', $dataSewa->id)->first();
+
         $data = [
             'sewa' => $dataSewa,
             'penyewa' => $dataPenyewa,
@@ -219,5 +227,15 @@ class Sewa_kamar_controller extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Transaksi gagal.']);
         }
         return $this->response->setJSON(['status' => 'success', 'message' => 'Data berhasil disimpan.']);
+    }
+
+    public function get_bukti_pembayaran($id)
+    {
+        $dataPembayaran = $this->pembayaranModel->where('id_sewa_kamar', $id)->where('jenis_pembayaran', 'DP')->first();
+        if ($dataPembayaran && !empty($dataPembayaran->bukti)) {
+            return $this->response->setJSON(['bukti' => $dataPembayaran->bukti]);
+        } else {
+            return $this->response->setJSON(['bukti' => null]);
+        }
     }
 }

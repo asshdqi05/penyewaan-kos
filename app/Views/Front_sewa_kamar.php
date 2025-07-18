@@ -279,7 +279,7 @@
 
                     <div id="info_qris" class="d-none text-center">
                         <p>Silakan scan QR berikut untuk pembayaran via QRIS:</p>
-                        <img src="<?= base_url('assets/') ?>dist/img/qris.png" alt="QRIS" class="img-fluid" style="max-width: 200px;">
+                        <img src="<?= base_url('assets/') ?>dist/img/qris.jpg" alt="QRIS" class="img-fluid" style="max-width: 200px;">
                     </div>
 
                     <div class="form-group">
