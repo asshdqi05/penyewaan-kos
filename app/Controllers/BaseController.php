@@ -46,13 +46,24 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
-        // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
+        if (session()->has('logged_in_penyewa')) {
+            $sessionName = config('Session')->cookieName ?? 'ci_session';
 
-        // E.g.: $this->session = service('session');
+            if (isset($_COOKIE[$sessionName])) {
+                setcookie(
+                    $sessionName,
+                    $_COOKIE[$sessionName],
+                    time() + 60 * 60 * 24 * 30, // 30 hari
+                    '/',
+                    '',       // domain default
+                    false,    // secure = true kalau pakai HTTPS
+                    true      // httpOnly
+                );
+            }
+        }
     }
 }

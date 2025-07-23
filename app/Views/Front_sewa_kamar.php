@@ -279,7 +279,7 @@
 
                     <div class="form-group">
                         <label for="metode_pembayaran">Metode Pembayaran</label>
-                        <select class="form-control" id="metode_pembayaran" name="metode_pembayaran" required>
+                        <select class="form-control" id="metode_pembayaran" name="metode_pembayaran">
                             <option value="">-- Pilih Metode --</option>
                             <option value="Transfer">Transfer Bank</option>
                             <option value="QRIS">QRIS</option>
@@ -303,13 +303,13 @@
                     <div class="form-group">
                         <label for="bukti_pembayaran">Upload Bukti Pembayaran</label>
                         <div class="custom-file">
-                            <input type="file" id="bukti_pembayaran" name="bukti_pembayaran" required accept="image/*">
+                            <input type="file" id="bukti_pembayaran" name="bukti_pembayaran" accept="image/*">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Kirim Pembayaran</button>
+
                 </div>
             </div>
         </form>
@@ -331,21 +331,21 @@
         updateCountdown();
 
         let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        let todayStr = `${yyyy}-${mm}-${dd}`;
 
-        // Hitung tanggal besok
-        let tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        let yyyy2 = tomorrow.getFullYear();
-        let mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
-        let dd2 = String(tomorrow.getDate()).padStart(2, '0');
-        let tomorrowStr = `${yyyy2}-${mm2}-${dd2}`;
+        // Tanggal masuk: besok (H+1)
+        let masuk = new Date(today);
+        masuk.setDate(today.getDate() + 1);
+        let masukStr = masuk.toISOString().split('T')[0];
 
-        $('#tanggal_masuk').attr('min', todayStr);
-        $('#tanggal_keluar').attr('min', tomorrowStr);
+        // Tanggal keluar: lusa (H+2)
+        let keluar = new Date(today);
+        keluar.setDate(today.getDate() + 2);
+        let keluarStr = keluar.toISOString().split('T')[0];
+
+        // Set ke input
+        $('#tanggal_masuk').attr('min', masukStr);
+        $('#tanggal_keluar').attr('min', keluarStr);
+
 
 
         $(document).on('click', '.select-kamar-btn', function() {
@@ -450,12 +450,22 @@
                             icon: 'success',
                             title: response.message
                         });
-                        location.reload();
-                    } else {
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    } else if (response.status == 'error') {
                         Toast.fire({
                             icon: 'error',
                             title: response.message
                         });
+                    } else if (response.status == 'pembatalan') {
+                        Toast.fire({
+                            icon: 'info',
+                            title: response.message
+                        });
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
                     }
                 },
                 error: function() {
@@ -467,17 +477,57 @@
     });
 
     function pembayaran(id, nama_penyewa, nama_kamar, total_harga, lama_sewa, id_kamar) {
-        dp = total_harga / 2;
-        $('#id_sewa').val(id);
-        $('#nama_penyewa_pay').val(nama_penyewa);
-        $('#nama_kamar_pay').val(nama_kamar);
-        $('#id_kamar_hidden').val(id_kamar);
-        $('#total_harga_pay').val('Rp ' + total_harga.toLocaleString());
-        $('#lama_sewa_pay').val(lama_sewa + ' hari');
-        $('#jumlah_pembayaran_pay').val('Rp ' + dp.toLocaleString());
-        $('#jumlah_pembayaran_hidden').val(dp);
-        $('#modalPembayaran').modal('show');
+        $.ajax({
+            url: '<?= base_url('cekKamarKosong') ?>',
+            type: 'POST',
+            data: {
+                id_kamar: id_kamar
+            },
+            dataType: 'json',
+            success: function(response) {
+                let dp = total_harga / 2;
+
+                $('#id_sewa').val(id);
+                $('#nama_penyewa_pay').val(nama_penyewa);
+                $('#nama_kamar_pay').val(nama_kamar);
+                $('#id_kamar_hidden').val(id_kamar);
+                $('#total_harga_pay').val('Rp ' + total_harga.toLocaleString());
+                $('#lama_sewa_pay').val(lama_sewa + ' hari');
+                $('#jumlah_pembayaran_pay').val('Rp ' + dp.toLocaleString());
+                $('#jumlah_pembayaran_hidden').val(dp);
+
+                $('#info_pembatalan').remove();
+                $('#btn_submit_pembayaran').remove();
+                $('#btn_batal_pesanan').remove();
+
+                if (response.kamar_kosong) {
+
+                    $('.modal-footer').append(`
+                    <button type="submit" class="btn btn-primary" id="btn_submit_pembayaran">Kirim Pembayaran</button>
+                `);
+                } else {
+
+                    $('.modal-footer').prepend(`
+                    <div class="alert alert-danger" id="info_pembatalan">
+                        Kamar <strong>${nama_kamar}</strong> Tidak tersedia. Anda bisa membatalkan pemesanan.
+                    </div>
+                `);
+                    $('.modal-footer').append(`
+                    <button type="submit" class="btn btn-danger" id="btn_batal_pesanan">Batalkan Pesanan</button>
+                `);
+
+                    $('.modal-body').hide();
+
+                }
+
+                $('#modalPembayaran').modal('show');
+            },
+            error: function(xhr, status, error) {
+                alert('Gagal memeriksa status kamar. Silakan coba lagi.');
+            }
+        });
     }
+
 
     function hapus(id) {
         Swal.fire({

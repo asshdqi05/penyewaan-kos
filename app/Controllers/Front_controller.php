@@ -23,6 +23,7 @@ class Front_controller extends BaseController
         $this->pembayaranModel = new Pembayaran_model();
         $this->session = session();
         $this->db = \Config\Database::connect();
+        $this->validation = \Config\Services::validation();
     }
     public function index()
     {
@@ -175,6 +176,50 @@ class Front_controller extends BaseController
                 'message' => 'Data sewa kamar tidak ditemukan.'
             ]);
         }
+
+        $cek_status_kamar = $this->kamarModel->find($id_kamar);
+        if ($cek_status_kamar->status != 'Kosong') {
+            $dataSewa = [
+                'status' => 'Batal',
+                'status_pembayaran' => 'Dibatalkan'
+            ];
+            $this->sewaKamarModel->update($id_sewa_kamar, $dataSewa);
+            return $this->response->setJSON([
+                'status' => 'pembatalan',
+                'message' => 'Kamar tidak tersedia untuk sewa. Booking telah dibatalkan.'
+            ]);
+        }
+
+        $this->validation->setRules([
+            'bukti_pembayaran' => [
+                'label' => 'Bukti Pembayaran',
+                'rules' => 'uploaded[bukti_pembayaran]|max_size[bukti_pembayaran,2048]|is_image[bukti_pembayaran]',
+                'errors' => [
+                    'uploaded' => 'Bukti pembayaran harus diupload.',
+                    'max_size' => 'Ukuran bukti pembayaran tidak boleh lebih dari 2MB.',
+                    'is_image' => 'Bukti pembayaran harus berupa gambar.'
+                ]
+            ],
+            'metode_pembayaran' => [
+                'label' => 'Metode Pembayaran',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Metode pembayaran harus dipilih.'
+                ]
+            ]
+        ]);
+
+
+
+        if (!$this->validation->withRequest($this->request)->run()) {
+            $errors = $this->validation->getErrors();
+            $errorMessage = implode('<br>', $errors);
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => $errorMessage
+            ]);
+        }
+
         $this->db->transStart();
 
         $file = $this->request->getFile('bukti_pembayaran');
@@ -276,5 +321,22 @@ class Front_controller extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Transaksi gagal.']);
         }
         return $this->response->setJSON(['status' => 'success', 'message' => 'Data berhasil dihapus.']);
+    }
+
+    public function cekKamarKosong()
+    {
+        $id_kamar = $this->request->getPost('id_kamar');
+        $kamar = $this->kamarModel->find($id_kamar);
+
+        if (!$kamar) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Kamar tidak ditemukan.']);
+        }
+
+        // Cek apakah kamar kosong
+        if ($kamar->status === 'Kosong') {
+            return $this->response->setJSON(['kamar_kosong' => true]);
+        } else {
+            return $this->response->setJSON(['kamar_kosong' => false]);
+        }
     }
 }

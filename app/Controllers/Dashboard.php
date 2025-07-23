@@ -3,10 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\Kamar_model;
+use App\Models\Sewa_kamar_model;
 
 class Dashboard extends BaseController
 {
     protected $kamarModel;
+    protected $sewaKamarModel;
     public function __construct()
     {
         $this->kamarModel = new Kamar_model();
@@ -36,13 +38,32 @@ class Dashboard extends BaseController
         $now = date('Y-m-d');
         $currentTime = date('H:i:s');
 
+        // Hanya dijalankan jika sudah jam 12 siang
         if ($currentTime >= '12:00:00') {
-            $this->sewaKamarModel
+            // Ambil semua data sewa yang perlu dibatalkan
+            $listBatal = $this->sewaKamarModel
                 ->where('tanggal_masuk <=', $now)
                 ->where('status_pembayaran !=', 'Lunas')
                 ->where('status', 'Booked')
-                ->set(['status' => 'Batal'])
-                ->update();
+                ->findAll();
+
+            if ($listBatal) {
+                // Ubah status sewa jadi Batal
+                $this->sewaKamarModel
+                    ->where('tanggal_masuk <=', $now)
+                    ->where('status_pembayaran !=', 'Lunas')
+                    ->where('status', 'Booked')
+                    ->set(['status' => 'Batal'])
+                    ->update();
+
+                // Loop untuk ubah status kamarnya jadi "Kosong"
+                foreach ($listBatal as $item) {
+                    $this->kamarModel
+                        ->where('id', $item->id_kamar)
+                        ->set(['status' => 'Kosong'])
+                        ->update();
+                }
+            }
         }
     }
 }

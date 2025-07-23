@@ -90,6 +90,20 @@ class Login_controller extends BaseController
     function logout_penyewa()
     {
         session()->remove(['logged_in_penyewa', 'id_penyewa', 'username_penyewa', 'nama_penyewa']);
+
+        $sessionName = config('Session')->cookieName ?? 'ci_session';
+        if (isset($_COOKIE[$sessionName])) {
+            setcookie(
+                $sessionName,
+                '',
+                time() - 3600,
+                '/',
+                '',
+                false,
+                true
+            );
+        }
+
         return redirect()->to('/Front-Dashboard');
     }
 }
