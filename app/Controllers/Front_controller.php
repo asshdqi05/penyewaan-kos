@@ -161,6 +161,42 @@ class Front_controller extends BaseController
         }
     }
 
+    public function edit_sewa_kamar()
+    {
+        $id = $this->request->getPost('id_sewa');
+        $id_penyewa = $this->request->getPost('id_penyewa');
+        $id_kamar = $this->request->getPost('id_kamar');
+        $tanggal_masuk = $this->request->getPost('tanggal_masuk');
+        $tanggal_keluar = $this->request->getPost('tanggal_keluar');
+        $lama_sewa = $this->request->getPost('lama_sewa');
+        $harga = $this->request->getPost('harga');
+        $total_harga = $lama_sewa * $harga;
+        $status_pembayaran = 'Menunggu pembayaran';
+        $status = '-';
+        $data = [
+            'id_penyewa'      => $id_penyewa,
+            'id_kamar'        => $id_kamar,
+            'tanggal_masuk'   => $tanggal_masuk,
+            'tanggal_keluar'  => $tanggal_keluar,
+            'lama_sewa'       => $lama_sewa,
+            'total_harga'     => $total_harga,
+            'status'          => $status,
+            'status_pembayaran' => $status_pembayaran
+        ];
+
+        if ($this->sewaKamarModel->update($id, $data)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Data sewa kamar berhasil diupdate. Silahkan melakukan pembayaran.',
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Data sewa kamar gagal diupdate.'
+            ]);
+        }
+    }
+
     public function save_pembayaran()
     {
         $id_sewa_kamar = $this->request->getPost('id_sewa');

@@ -208,7 +208,7 @@
                         <div class="row">
                             <input type="text" name="nama_kamar" id="nama_kamar" class="form-control col-12" readonly required>
                             <input type="hidden" name="id_kamar" id="id_kamar" class="form-control" readonly required>
-                            
+
                         </div>
                     </div>
                     <div class="form-group col-md-12">
@@ -339,24 +339,20 @@
                 }
             });
         });
-
         let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        let todayStr = `${yyyy}-${mm}-${dd}`;
 
-        // Hitung tanggal besok
-        let tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        let yyyy2 = tomorrow.getFullYear();
-        let mm2 = String(tomorrow.getMonth() + 1).padStart(2, '0');
-        let dd2 = String(tomorrow.getDate()).padStart(2, '0');
-        let tomorrowStr = `${yyyy2}-${mm2}-${dd2}`;
+        // Tanggal masuk: besok (H+1)
+        let masuk = new Date(today);
+        masuk.setDate(today.getDate() + 1);
+        let masukStr = masuk.toISOString().split('T')[0];
 
-        $('#tanggal_masuk').attr('min', todayStr);
-        $('#tanggal_keluar').attr('min', tomorrowStr);
+        // Tanggal keluar: lusa (H+2)
+        let keluar = new Date(today);
+        keluar.setDate(today.getDate() + 2);
+        let keluarStr = keluar.toISOString().split('T')[0];
 
+        $('#tanggal_masuk').attr('min', masukStr);
+        $('#tanggal_keluar').attr('min', keluarStr);
 
 
 

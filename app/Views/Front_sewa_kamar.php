@@ -237,6 +237,155 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal_ganti_kamar_add">
+    <div class="modal-dialog modal-xl">
+        <form method="POST" id="form-ganti-kamar">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ganti Kamar</h4>
+                    <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body row">
+                    <div class="form-group col-md-6">
+                        <label>Nama Penyewa</label>
+                        <input type="text" name="nama_penyewa" id="nama_penyewa" class="form-control" value="<?= session()->get('nama_penyewa') ?>" readonly required>
+                        <input type="hidden" name="id_penyewa" id="id_penyewa" class="form-control" value="<?= session()->get('id_penyewa') ?>" readonly required>
+                        <input type="hidden" name="id_sewa" id="id_sewa_kamar_lain" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Pilih Kamar</label>
+                        <div class="row">
+                            <button type="button" class="btn btn-info btn-flat col-3" data-toggle="modal" data-target="#pilih_kamar_lain">
+                                <span class="fas fa-search"></span> Pilih Kamar
+                            </button>
+                            <input type="text" name="nama_kamar" id="nama_kamar_lain" class="form-control col-9" readonly required>
+                            <input type="hidden" name="id_kamar" id="id_kamar_lain" class="form-control" readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Fasilitas Kamar</label>
+                        <textarea name="fasilitas_kamar" id="fasilitas_kamar_lain" class="form-control" rows="5" readonly required></textarea>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Harga Kamar Permalam</label>
+                        <input type="text" name="harga" id="harga-select_lain" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Tanggal Masuk</label>
+                        <input type="date" name="tanggal_masuk" id="tanggal_masuk_lain" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Tanggal Keluar</label>
+                        <input type="date" name="tanggal_keluar" id="tanggal_keluar_lain" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Lama Sewa (Permalam)</label>
+                        <input type="number" name="lama_sewa" id="lama_sewa_lain" class="form-control" readonly required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Total</label>
+                        <input type="text" name="total" id="total_harga_lain" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>DP</label>
+                        <input type="text" name="dp" id="dp_lain" class="form-control" readonly required>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="pilih_kamar_lain">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pilih Kamar</h4>
+                <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card card-white">
+                        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-0 text-maroon">Ketersediaan Kamar</h4>
+                            </div>
+                            <div class="ml-auto d-flex flex-wrap gap-1">
+                                <span class="badge badge-primary mr-1">Total: <?= $total_kamar ?></span>
+                                <span class="badge badge-success mr-1">Tersedia: <?= $total_kamar_kosong ?></span>
+                                <span class="badge badge-danger mr-1">Terisi: <?= $total_kamar_terisi ?></span>
+                                <span class="badge badge-warning">Dipesan: <?= $total_kamar_dipesan ?></span>
+                            </div>
+                        </div>
+
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <div class="row">
+                                <?php
+                                $warnaStatus = [
+                                    'Kosong'  => 'badge-success',
+                                    'Dipesan' => 'badge-warning',
+                                    'Terisi'  => 'badge-danger'
+                                ];
+                                ?>
+
+                                <?php foreach ($kamar as $k) : ?>
+                                    <div class="col-md-3 mb-4">
+                                        <div class="card room-card">
+                                            <div class="room-img-container">
+                                                <?php if ($k->foto && file_exists(FCPATH . 'uploads/kamar/' . $k->foto)) : ?>
+                                                    <img src="<?= base_url('uploads/kamar/' . $k->foto) ?>" alt="Foto kamar">
+                                                <?php else : ?>
+                                                    <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 100%;">
+                                                        <span>Tidak ada foto</span>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <span class="room-status-badge badge <?= $warnaStatus[$k->status] ?? 'badge-secondary' ?>">
+                                                    <?= esc($k->status) == 'Kosong' ? 'Tersedia' : esc($k->status) ?>
+                                                </span>
+                                            </div>
+                                            <div class="room-info">
+                                                <div class="room-title"><?= esc($k->nama_kamar) ?></div>
+                                                <div><strong>Fasilitas:</strong></div>
+                                                <div style="white-space: pre-line;"><?= esc($k->fasilitas) ?></div>
+                                                <div class="room-price">Harga: Rp <?= number_format($k->harga, 0, ',', '.') ?></div>
+                                            </div>
+                                            <div class="card-footer text-center">
+                                                <?php if ($k->status == 'Kosong') : ?>
+                                                    <a class="btn btn-primary btn-sm select-kamar-lain-btn" data-id="<?= $k->id ?>" data-nama="<?= esc($k->nama_kamar) ?>" data-fasilitas="<?= esc($k->fasilitas) ?>" data-harga="<?= $k->harga ?>">
+                                                        Pilih Kamar
+                                                    </a>
+                                                <?php else : ?>
+                                                    <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                                        Kamar Tidak Tersedia
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalPembayaran">
     <div class="modal-dialog">
         <form id="formPembayaran" enctype="multipart/form-data">
@@ -248,7 +397,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body body-pembayaran">
                     <div class="form-group">
                         <label for="nama_penyewa">Penyewa</label>
                         <input type="text" class="form-control" id="nama_penyewa_pay" readonly>
@@ -307,7 +456,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
+                <div class="modal-footer footer-pembayaran justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
 
                 </div>
@@ -342,9 +491,10 @@
         keluar.setDate(today.getDate() + 2);
         let keluarStr = keluar.toISOString().split('T')[0];
 
-        // Set ke input
         $('#tanggal_masuk').attr('min', masukStr);
         $('#tanggal_keluar').attr('min', keluarStr);
+        $('#tanggal_masuk_lain').attr('min', masukStr);
+        $('#tanggal_keluar_lain').attr('min', keluarStr);
 
 
 
@@ -391,6 +541,41 @@
 
         $('#tanggal_masuk, #tanggal_keluar').on('change', hitungSewaPerMalam);
 
+        function hitungSewaPerMalamLain() {
+            const masuk = new Date($('#tanggal_masuk_lain').val());
+            const keluar = new Date($('#tanggal_keluar_lain').val());
+            const harga = parseInt($('#harga-select_lain').val());
+
+            if (!isNaN(masuk) && !isNaN(keluar) && keluar > masuk) {
+                let malam = (keluar - masuk) / (1000 * 60 * 60 * 24);
+
+                if (isNaN(malam)) {
+                    malam = 0;
+                }
+
+                if (malam < 1) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Minimal sewa adalah 1 malam.'
+                    });
+                    $('#tanggal_keluar_lain').val('');
+                    $('#lama_sewa_lain').val('');
+                    $('#total_harga_lain').val('');
+                    return;
+                }
+
+                $('#lama_sewa_lain').val(malam);
+                const total = malam * harga;
+                $('#total_harga_lain').val('Rp ' + total.toLocaleString('id-ID'));
+                $('#dp_lain').val('Rp ' + (total / 2).toLocaleString('id-ID'));
+            } else {
+                $('#lama_sewa_lain').val('');
+                $('#total_harga_lain').val('');
+            }
+        }
+
+        $('#tanggal_masuk_lain, #tanggal_keluar_lain').on('change', hitungSewaPerMalamLain);
+
         $("#form-add").submit(function(e) {
             e.preventDefault();
             $.ajax({
@@ -406,6 +591,36 @@
                             title: response.message
                         });
                         location.reload();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+                },
+                error: function() {
+                    alert('Error saving data!');
+                }
+            });
+        });
+
+        $("#form-ganti-kamar").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('edit-sewa-kamar-penyewa') ?>",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 'success') {
+                        $('#modal_ganti_kamar').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
                     } else {
                         Toast.fire({
                             icon: 'error',
@@ -474,9 +689,35 @@
             });
         });
 
+        $(document).on('click', '#btn_pilih_kamar_lain', function() {
+            let id_sewa = $(this).data('id_sewa');
+            $('#id_sewa_kamar_lain').val(id_sewa);
+
+            $('#modalPembayaran').on('hidden.bs.modal', function() {
+                $('#pilih_kamar_lain').modal('show');
+                $(this).off('hidden.bs.modal');
+            });
+
+            $('#modalPembayaran').modal('hide');
+        });
+
+
+        $(document).on('click', '.select-kamar-lain-btn', function() {
+            $('#id_kamar_lain').val($(this).data('id'));
+            $('#nama_kamar_lain').val($(this).data('nama'));
+            $('#fasilitas_kamar_lain').val($(this).data('fasilitas'));
+            $('#harga-select_lain').val($(this).data('harga'));
+            $('#pilih_kamar_lain').on('hidden.bs.modal', function() {
+                $('#modal_ganti_kamar_add').modal('show');
+                $(this).off('hidden.bs.modal');
+            });
+            $('#pilih_kamar_lain').modal('hide');
+        });
+
     });
 
     function pembayaran(id, nama_penyewa, nama_kamar, total_harga, lama_sewa, id_kamar) {
+        $('.footer-pembayaran').empty();
         $.ajax({
             url: '<?= base_url('cekKamarKosong') ?>',
             type: 'POST',
@@ -502,21 +743,22 @@
 
                 if (response.kamar_kosong) {
 
-                    $('.modal-footer').append(`
+                    $('.footer-pembayaran').append(`
                     <button type="submit" class="btn btn-primary" id="btn_submit_pembayaran">Kirim Pembayaran</button>
                 `);
                 } else {
 
-                    $('.modal-footer').prepend(`
+                    $('.footer-pembayaran').prepend(`
                     <div class="alert alert-danger" id="info_pembatalan">
-                        Kamar <strong>${nama_kamar}</strong> Tidak tersedia. Anda bisa membatalkan pemesanan.
+                        Kamar <strong>${nama_kamar}</strong> Tidak tersedia. Anda bisa membatalkan pemesanan Atau Memilih kamar lain yang tersedia.
                     </div>
                 `);
-                    $('.modal-footer').append(`
+                    $('.footer-pembayaran').append(`
+                    <button type="button" class="btn btn-primary" data-id_sewa="${id}" id="btn_pilih_kamar_lain">Pilih Kamar Lain</button>
                     <button type="submit" class="btn btn-danger" id="btn_batal_pesanan">Batalkan Pesanan</button>
                 `);
 
-                    $('.modal-body').hide();
+                    $('.body-pembayaran').hide();
 
                 }
 

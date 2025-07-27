@@ -48,3 +48,4 @@ $routes->post('laporan-penyewaan-kamar', 'Laporan_controller::laporan_penyewaan_
 $routes->post('laporan-pembayaran', 'Laporan_controller::laporan_pembayaran');
 
 $routes->post('cekKamarKosong', 'Front_controller::cekKamarKosong');
+$routes->post('edit-sewa-kamar-penyewa', 'Front_controller::edit_sewa_kamar');

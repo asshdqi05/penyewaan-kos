@@ -12,6 +12,7 @@ class Dashboard extends BaseController
     public function __construct()
     {
         $this->kamarModel = new Kamar_model();
+        $this->sewaKamarModel = new Sewa_kamar_model();
     }
     public function index()
     {
@@ -38,9 +39,7 @@ class Dashboard extends BaseController
         $now = date('Y-m-d');
         $currentTime = date('H:i:s');
 
-        // Hanya dijalankan jika sudah jam 12 siang
         if ($currentTime >= '12:00:00') {
-            // Ambil semua data sewa yang perlu dibatalkan
             $listBatal = $this->sewaKamarModel
                 ->where('tanggal_masuk <=', $now)
                 ->where('status_pembayaran !=', 'Lunas')
@@ -48,7 +47,6 @@ class Dashboard extends BaseController
                 ->findAll();
 
             if ($listBatal) {
-                // Ubah status sewa jadi Batal
                 $this->sewaKamarModel
                     ->where('tanggal_masuk <=', $now)
                     ->where('status_pembayaran !=', 'Lunas')
@@ -56,7 +54,6 @@ class Dashboard extends BaseController
                     ->set(['status' => 'Batal'])
                     ->update();
 
-                // Loop untuk ubah status kamarnya jadi "Kosong"
                 foreach ($listBatal as $item) {
                     $this->kamarModel
                         ->where('id', $item->id_kamar)
