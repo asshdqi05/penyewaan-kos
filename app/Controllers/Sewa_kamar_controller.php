@@ -41,9 +41,72 @@ class Sewa_kamar_controller extends BaseController
             return $kamar->status == 'Dipesan';
         }));
         $data['penyewa'] = $this->penyewaModel->where('is_active', 'y')->findAll();
-        $data['data'] = $this->sewaKamarModel->getListData();
         return view('Sewa_Kamar_view', $data);
     }
+
+    public function get_data()
+    {
+        $search = $this->request->getPost('search')['value'] ?? '';
+        $order  = $this->request->getPost('order')[0] ?? null;
+        $start  = $this->request->getPost('start') ?? 0;
+        $length = $this->request->getPost('length') ?? 10;
+        $tanggal_awal = $this->request->getPost('tanggal_awal');
+        $tanggal_akhir = $this->request->getPost('tanggal_akhir');
+
+        $data   = $this->sewaKamarModel->getDatatables($search, $order, $start, $length, $tanggal_awal, $tanggal_akhir);
+        $total  = $this->sewaKamarModel->countAllData();
+        $filter = $this->sewaKamarModel->countFiltered($search, $tanggal_awal, $tanggal_akhir);
+
+        $result = [];
+        $no = $start + 1;
+
+        foreach ($data as $row) {
+            // Format tanggal
+            $tglMasuk = date('d-m-Y', strtotime($row['tanggal_masuk']));
+            $tglKeluar = date('d-m-Y', strtotime($row['tanggal_keluar']));
+            $totalHarga = 'Rp. ' . number_format($row['total_harga'], 0, ',', '.');
+
+            // Tombol aksi sesuai status
+            $aksi = '';
+            if ($row['status'] == 'Check-in') {
+                $aksi .= '<a class="btn btn-xs btn-danger" href="javascript:void(0)" onclick="checkout(\'' . $row['id'] . '\', \'' . esc($row['nama_penyewa']) . '\', \'' . esc($row['nama_kamar']) . '\')">
+                        <i class="fas fa-sign-out-alt"></i> Check out
+                      </a> ';
+                $aksi .= '<a class="btn btn-xs btn-info" href="' . site_url('cetak-struk/' . $row['id']) . '" target="_blank">
+                        <i class="fas fa-receipt"></i>
+                      </a>';
+            } elseif ($row['status'] == 'Check-out') {
+                $aksi .= '<a class="btn btn-xs btn-info" href="' . site_url('cetak-struk/' . $row['id']) . '" target="_blank">
+                        <i class="fas fa-receipt"></i>
+                      </a>';
+            } elseif ($row['status'] == 'Booked') {
+                $aksi .= '<a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="pelunasan(\'' . $row['id'] . '\', \'' . esc($row['nama_penyewa']) . '\', \'' . esc($row['nama_kamar']) . '\', \'' . $row['total_harga'] . '\', \'' . $row['id_kamar'] . '\')">
+                        <i class="fas fa-money-bill-wave"></i> Pelunasan
+                      </a>';
+            }
+
+            $result[] = [
+                'no' => $no++,
+                'nama_penyewa' => esc($row['nama_penyewa']),
+                'nama_kamar' => esc($row['nama_kamar']),
+                'tanggal_masuk' => $tglMasuk,
+                'tanggal_keluar' => $tglKeluar,
+                'lama_sewa' => $row['lama_sewa'] . ' Malam',
+                'total_harga' => $totalHarga,
+                'status_pembayaran' => $row['status_pembayaran'],
+                'status' => $row['status'],
+                'aksi' => $aksi
+            ];
+        }
+
+        return $this->response->setJSON([
+            'draw' => intval($this->request->getPost('draw')),
+            'recordsTotal' => $total,
+            'recordsFiltered' => $filter,
+            'data' => $result,
+        ]);
+    }
+
 
     private function autoBatalSewa()
     {
@@ -106,7 +169,8 @@ class Sewa_kamar_controller extends BaseController
             'harga' => $harga,
             'total_harga' => $total_harga,
             'status' => $status,
-            'status_pembayaran' => $status_pembayaran
+            'status_pembayaran' => $status_pembayaran,
+            'created_at' => date('Y-m-d H:i:s')
         ];
         $this->sewaKamarModel->insert($dataSewa);
         if ($this->sewaKamarModel->errors()) {
@@ -274,6 +338,4 @@ class Sewa_kamar_controller extends BaseController
             return $this->response->setJSON(['bukti' => null]);
         }
     }
-
-    
 }

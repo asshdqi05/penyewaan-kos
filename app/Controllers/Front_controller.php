@@ -145,7 +145,8 @@ class Front_controller extends BaseController
             'lama_sewa'       => $lama_sewa,
             'total_harga'     => $total_harga,
             'status'          => $status,
-            'status_pembayaran' => $status_pembayaran
+            'status_pembayaran' => $status_pembayaran,
+            'created_at' => date('Y-m-d H:i:s')
         ];
 
         if ($this->sewaKamarModel->save($data)) {

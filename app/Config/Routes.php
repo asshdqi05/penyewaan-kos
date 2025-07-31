@@ -32,6 +32,7 @@ $routes->post('save-pelunasan', 'Sewa_kamar_controller::save_pelunasan');
 $routes->post('checkout', 'Sewa_kamar_controller::checkout');
 $routes->get('cetak-struk/(:any)', 'Sewa_kamar_controller::cetak_struk/$1');
 $routes->get('getBukti/(:any)', 'Sewa_kamar_controller::get_bukti_pembayaran/$1');
+$routes->post('sewa-kamar/list', 'Sewa_kamar_controller::get_data');
 
 
 $routes->get('Front-Dashboard', 'Front_controller::index');

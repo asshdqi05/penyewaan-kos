@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="row">
     <div class="col-sm-12">
-        
+
         <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add">
@@ -11,7 +11,24 @@
             </div>
 
             <div class="card-body">
-                <table id="myTable" class="table table-bordered table-striped">
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-3">
+                        <label for="tgl_awal">Tanggal</label>
+                        <input type="date" class="form-control" name="tanggal" id="tgl_awal" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="tgl_akhir">Sampai Tanggal</label>
+                        <input type="date" class="form-control" name="tanggal" id="tgl_akhir" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="d-block">&nbsp;</label>
+                        <button class="btn btn-primary w-50" id="btn-filter-transaksi">
+                            <i class="fas fa-filter"></i> &nbsp; Filter
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <table id="myTable" class="table table-bordered table-striped table-sm">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
@@ -28,39 +45,7 @@
                     </thead>
 
                     <tbody>
-                        <?php $no = 1;
-                        foreach ($data as $d) { ?>
-                            <tr>
-                                <td class="text-center"><?= $no++ ?>.</td>
-                                <td><?= esc($d->nama_penyewa) ?></td>
-                                <td><?= esc($d->nama_kamar) ?></td>
-                                <td><?= esc(date('d-m-Y', strtotime($d->tanggal_masuk))) ?></td>
-                                <td><?= esc(date('d-m-Y', strtotime($d->tanggal_keluar))) ?></td>
-                                <td><?= esc($d->lama_sewa . ' Malam') ?></td>
-                                <td><?= esc('Rp. ' . number_format($d->total_harga)) ?></td>
-                                <td><?= esc($d->status_pembayaran) ?></td>
-                                <td><?= esc($d->status) ?></td>
-                                <td class="text-center">
-                                    <?php if ($d->status == 'Check-in') { ?>
-                                        <a class="btn btn-xs btn-danger" href="javaScript:void(0)" onclick="checkout('<?= $d->id ?>', '<?= esc($d->nama_penyewa) ?>','<?= esc($d->nama_kamar) ?>')">
-                                            <i class="fas fa-sign-out-alt"></i>
-                                            Check out
-                                        </a>
-                                        <a class="btn btn-xs btn-info" href="<?= site_url('cetak-struk/' . $d->id) ?>" target="_blank">
-                                            <i class="fas fa-receipt"></i>
-                                        </a>
-                                    <?php } else if ($d->status == 'Check-out') { ?>
-                                        <a class="btn btn-xs btn-info" href="<?= site_url('cetak-struk/' . $d->id) ?>" target="_blank">
-                                            <i class="fas fa-receipt"></i>
-                                        </a>
-                                    <?php } else if ($d->status == 'Booked') { ?>
-                                        <a class="btn btn-xs btn-primary" href="javascript:void(0)" onclick="pelunasan('<?= $d->id ?>', '<?= esc($d->nama_penyewa) ?>','<?= esc($d->nama_kamar) ?>', '<?= esc($d->total_harga) ?>', '<?= esc($d->id_kamar) ?>')">
-                                            <i class="fas fa-money-bill-wave"></i> Pelunasan
-                                        </a>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                        <?php } ?>
+
                     </tbody>
                 </table>
 
@@ -294,7 +279,70 @@
 </script>
 <script>
     $(document).ready(() => {
-        $('#myTable').DataTable();
+
+        $('#btn-filter-transaksi').on('click', function() {
+            $('#myTable').DataTable().ajax.reload();
+        });
+
+        $('#myTable').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: "<?= base_url('sewa-kamar/list') ?>",
+                type: "POST",
+                data: function(d) {
+                    d.tanggal_awal = $('#tgl_awal').val();
+                    d.tanggal_akhir = $('#tgl_akhir').val();
+                }
+            },
+            columns: [{
+                    data: 'no'
+                },
+                {
+                    data: 'nama_penyewa'
+                },
+                {
+                    data: 'nama_kamar'
+                },
+                {
+                    data: 'tanggal_masuk'
+                },
+                {
+                    data: 'tanggal_keluar'
+                },
+                {
+                    data: 'lama_sewa'
+                },
+                {
+                    data: 'total_harga'
+                },
+                {
+                    data: 'status_pembayaran'
+                },
+                {
+                    data: 'status'
+                },
+                {
+                    data: 'aksi',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+            columnDefs: [{
+                    targets: 0,
+                    className: 'text-center',
+                    width: '5%'
+                },
+                {
+                    targets: 9,
+                    className: 'text-center',
+                    width: '10%'
+                }
+            ]
+        });
+
+
         $('.select2').select2({
             theme: 'bootstrap4'
         });
